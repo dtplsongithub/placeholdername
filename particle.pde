@@ -8,8 +8,11 @@ color[] epartcolor = {color(255, 255, 0)};
 int lastshoot = 0;
 void shoot(int type, float x, float y, boolean cooldown) {
   if(cooldown) {
-    lastshoot = t;
-    if(t-lastshoot<10)return;
+    if(t-lastshoot<15) {
+      return;
+    } else { 
+      lastshoot = t;
+    }
   }
   particlex = append(particlex, x);
   particley = append(particley, y);
@@ -19,7 +22,9 @@ void updateparticle() {
   for (int i = 0; i<particlex.length; i++){
     int type = particlet[i];
     if (type < 0) {
+      println(type + " ig was an epart");
       type = abs(type)-1;
+      println(type + " ig was an epart");
       fill(epartcolor[type]);
       rect(particlex[i], particley[i], epartsettings[type][0], epartsettings[type][1]);
       particley[i] += epartsettings[type][2];
