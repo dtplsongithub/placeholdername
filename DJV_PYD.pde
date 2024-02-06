@@ -71,7 +71,7 @@ void setup() {
   surface.setResizable(false);
   println(P2D);
   p = new Player(500, 500, 0.8, 4);
-  textFont(loadFont("MS-Gothic-20.vlw"));
+  textFont(loadFont("fonts/MS-Gothic-20.vlw"));
   textSize(20);
   loadwave(waveno);
 }

@@ -10,7 +10,7 @@ int[] enemyhp = new int[40];
 float[] enemyRANDID = new float[40]; // h
 void loadwave(int which) {
   t = 0;
-  String[] wavetemp = loadStrings(which+".dpw");
+  String[] wavetemp = loadStrings("/wave/"+which+".dpw");
   wavename = wavetemp[0];
   for(int y = 1; y<5; y++){
     for(int x = 0; x<8; x++){
@@ -55,7 +55,7 @@ void enemy() {
       float finaly = y*90+40+enemyyoff[i]+(sin(float(t*(1-enemystate[i])+enemyclock[i]*2*enemystate[i])/30*(enemystate[i]+1)+enemyRANDID[i]*(1-enemystate[i])/100)*cos(enemyv[i])*5)*(enemystate[i]+1);
       enemyclock[i]--;
       if(enemyclock[i]<0){
-        enemyclock[i] = int(random(400, 1200));
+        enemyclock[i] = int(random(700, 1500));
         enemyv[i] += random(-0.2, 0.2);
         shoot(-1, finalx, finaly, false);// negative particles means its from an enemy and should be treated differently
         enemystate[i]=0;
