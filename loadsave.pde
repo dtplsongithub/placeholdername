@@ -1,4 +1,6 @@
 byte[] ldbdata;
+String[] ldbstrdata = {};
+int[] ldbscoredata = {};
 byte[] ldbgener = {};
 int tablerowsize = 20;
 void ldbrenderdata() {

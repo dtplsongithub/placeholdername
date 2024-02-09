@@ -19,7 +19,8 @@ String[][] menuopts = {
     "sfx test",
     "go to game",
     "easedemo",
-    "go to menu"
+    "go to menu",
+    "go to leaderboard"
   },{},{},{
     "back"
   },{},{},{
@@ -30,8 +31,7 @@ String[][] menuopts = {
     "back"
   },{},{
     "wandering",
-    "hit",
-    "angry"
+    "hit"
   }
 };
 Player p;
@@ -71,9 +71,10 @@ void setup() {
   surface.setResizable(false);
   println(P2D);
   p = new Player(500, 500, 0.8, 4);
-  textFont(loadFont("fonts/MS-Gothic-20.vlw"));
+  textFont(loadFont("/fonts/MS-Gothic-20.vlw"));
   textSize(20);
   loadwave(waveno);
+  ldb = new IntDict();
 }
 void draw() {
   t++;
@@ -137,6 +138,18 @@ void draw() {
     emd();
     break;
   }
+  case 9: {
+    menu = 4;
+    togo = 10;
+    ldbload();
+    ldbloaddata();
+    text("loading leaderboard... please wait...", 50, 50);
+    break;
+  }
+  case 10: {
+    ldbrender();
+    break;
+  }
   default: {
     menu = 0;
   }
@@ -168,6 +181,9 @@ void keyPressed() {
           case 6: {
             menu = 7;
             break;
+          }
+          case 7: {
+            menu = 9;
           }
           }
           break;
