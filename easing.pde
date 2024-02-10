@@ -1,3 +1,4 @@
+// map2() function is uhh useful to say the least :thubm_up:
 
 /* The map2() function supports the following easing types */
 final int LINEAR = 0;

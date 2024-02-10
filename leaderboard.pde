@@ -1,3 +1,5 @@
+// leaderboard rendering
+
 IntDict ldb;
 void ldbrender() {
   for (int l = 0; l<ldbscoredata.length; l++) {

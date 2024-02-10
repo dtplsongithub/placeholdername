@@ -1,3 +1,5 @@
+// enemy rendering and wave handling
+
 int waveno = 1;
 String wavename;
 int[][] enemytype = new int[4][8];

@@ -1,3 +1,5 @@
+// particle handling g
+
 float[] particlex = {}; // x
 float[] particley = {}; // y
 int[] particlet = {}; // type

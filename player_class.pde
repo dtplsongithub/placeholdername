@@ -1,3 +1,5 @@
+// player class
+
 final class Player {
   boolean isLeft, isRight, isUp, isDown, shoot;
   float x, y;
