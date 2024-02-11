@@ -2,15 +2,20 @@
 
 IntDict ldb;
 void ldbrender() {
+  textFont(msg48);
   for (int l = 0; l<ldbscoredata.length; l++) {
+      int y = l*75+height/2-4*25;
     for (int i = 0; i<16; i++){
-      int x = i*20+width/2-16*25;
-      int y = l*50+height/2-4*25;
+      int x = i*35+width/2-16*25;
       if(l == 0)
       text(ldbstrdata[l].charAt(i),x+sin(float(t+i*10)/25)*5,y+cos(float(t+i*10)/25)*5);
       else
       text(ldbstrdata[l].charAt(i),x, y);
     }
+    if(l == 0)
+    text(ldbscoredata[l], 700, y+cos(float(t)/25)*5);
+    else
+    text(ldbscoredata[l], 700, y);
   }
 }
 void ldbloaddata() {
@@ -37,4 +42,6 @@ void ldbloaddata() {
     ldbscoredata[i] = ldb.get(k);
     i++;
   }
+  ldbstrdata = reverse(ldbstrdata);
+  ldbscoredata = reverse(ldbscoredata);
 }

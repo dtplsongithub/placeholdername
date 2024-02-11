@@ -35,43 +35,24 @@ String[][] menuopts = {
   }
 };
 Player p;
-
-byte[] strconv(String s, int score) {
-  byte[] sb = {};
-  byte[] scoreb = {};
-  sb = expand(sb, 16);
-  scoreb = expand(scoreb, 4);
-  for (int i = 0; i < sb.length; i++) {
-    if (s.length()-1<i) {
-      sb[i]=0;
-      continue;
-    }
-    byte code = (byte)(s.charAt(i));
-    sb[i]=code;
-    if (code > 255) sb[i] = 63;
-  }
-  int scoretemp = score;
-  for (int i = 0; i<scoreb.length; i++) {
-    scoreb[i] = byte(scoretemp%256);
-    println(binary(scoretemp), scoreb[i], scoretemp%256);
-    scoretemp = scoretemp>>8;
-  }
-  return concat(sb, scoreb);
-}
+PFont msg14, msg20, msg48;
 
 void setup() {
   //fullScreen(P2D);
   size(1024, 768);
   background(0);
   textSize(48);
+  msg20 = loadFont("/fonts/MS-Gothic-20.vlw");
+  textFont(msg20);
   text("LOADING...", 77, 77);
+  msg14 = loadFont("/fonts/MS-Gothic-14.vlw");
+  msg48 = loadFont("/fonts/MS-Gothic-48.vlw");
   noStroke();
   frameRate(60);
-  surface.setTitle("Polyehdronaid");
+  surface.setTitle("placeholdername");
   surface.setResizable(false);
   println(P2D);
   p = new Player(500, 500, 0.8, 4);
-  textFont(loadFont("/fonts/MS-Gothic-20.vlw"));
   textSize(20);
   loadwave(waveno);
   ldb = new IntDict();
@@ -280,4 +261,27 @@ void optchmc() {
       break;
     }
   }
+}
+
+byte[] strconv(String s, int score) {
+  byte[] sb = {};
+  byte[] scoreb = {};
+  sb = expand(sb, 16);
+  scoreb = expand(scoreb, 4);
+  for (int i = 0; i < sb.length; i++) {
+    if (s.length()-1<i) {
+      sb[i]=0;
+      continue;
+    }
+    byte code = (byte)(s.charAt(i));
+    sb[i]=code;
+    if (code > 255) sb[i] = 63;
+  }
+  int scoretemp = score;
+  for (int i = 0; i<scoreb.length; i++) {
+    scoreb[i] = byte(scoretemp%256);
+    println(binary(scoretemp), scoreb[i], scoretemp%256);
+    scoretemp = scoretemp>>8;
+  }
+  return concat(sb, scoreb);
 }

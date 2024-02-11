@@ -1,5 +1,6 @@
 int score = 0;
 void rightside(float xoff){
+  textFont(msg20);
   strokeWeight(4);
   stroke(255);
   fill(0, 0, 50);
@@ -10,8 +11,9 @@ void rightside(float xoff){
   textSize(20);
   
   // displaying messages
+  textFont(msg14);
   strokeWeight(4);
-  textSize(20);
+  textSize(14);
   for (int i = 0; i<message.length; i++){
     fill(messagecolor[i]);
     rect(width-214, 56+29*i+max(0, 29+lastmsgdel*2-t*2)+xoff, 203-12-textWidth(str(messagescore[i])), 24, 6);
@@ -29,6 +31,7 @@ void rightside(float xoff){
     }
   }
   textSize(20);
+  textFont(msg20);
   noStroke();
 }
 String[] message = {};
