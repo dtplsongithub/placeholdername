@@ -3,8 +3,9 @@
 IntDict ldb;
 void ldbrender() {
   textFont(msg48);
-  for (int l = 0; l<ldbscoredata.length; l++) {
-      int y = l*75+height/2-4*25;
+  text("placeholdername leaderboard", (width-textWidth("placeholdername leaderboard"))/2, height/2+1000-t-1000);
+  for (int l = 0; l<min(ldbscoredata.length, 20); l++) {
+    int y = l*75+1000-t;
     for (int i = 0; i<16; i++){
       int x = i*35+width/2-16*25;
       if(l == 0)

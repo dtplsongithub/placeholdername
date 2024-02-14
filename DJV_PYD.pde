@@ -120,11 +120,11 @@ void draw() {
     break;
   }
   case 9: {
-    menu = 4;
-    togo = 10;
     ldbload();
     ldbloaddata();
     text("loading leaderboard... please wait...", 50, 50);
+    menu = 4;
+    togo = 10;
     break;
   }
   case 10: {
