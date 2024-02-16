@@ -32,6 +32,9 @@ String[][] menuopts = {
   },{},{
     "wandering",
     "hit"
+  },{},{},{
+    "resume",
+    "quit"
   }
 };
 Player p;
@@ -39,7 +42,7 @@ PFont msg14, msg20, msg48;
 
 void setup() {
   //fullScreen(P2D);
-  size(1024, 768);
+  size(1024, 768, P3D);
   background(0);
   textSize(48);
   msg20 = loadFont("/fonts/MS-Gothic-20.vlw");
@@ -66,7 +69,11 @@ void draw() {
       options();
       break;
     }
-  case 2: {
+    case 1: { // title screen
+      
+      break;
+    }
+  case 2: { // game
     p.move();
     p.display();
     updateparticle();
@@ -79,14 +86,14 @@ void draw() {
     options();
     break;
   }
-  case 4: {
+  case 4: { // go to a menu and reset the timer
     t = 0;
     menuselect = 0;
     menu = togo;
     if (togo == 4)menu = 0; // dont get stuck in an infinite loop kids its not fun
     break;
   }
-  case 5: {
+  case 5: { // transition
     textSize(20);
     text("wave "+waveno, (width-textWidth("wave " + waveno))/2+500-map2(max(t-120, 0), 0, 30, 500, 0, QUINTIC, EASE_IN), height/2+500-map2(max(50-t, 0), 0, 50, 500, 0, QUINTIC, EASE_IN));
     textSize(32);
@@ -104,7 +111,7 @@ void draw() {
     }
     break;
   }
-  case 6: {
+  case 6: { // ldb test
     options();
     ldbrenderdata();
     break;
@@ -119,16 +126,44 @@ void draw() {
     emd();
     break;
   }
-  case 9: {
+  case 9: { // isnt it obvious?
     ldbload();
-    ldbloaddata();
+    ldbloaddata("");
     text("loading leaderboard... please wait...", 50, 50);
     menu = 4;
     togo = 10;
     break;
   }
-  case 10: {
+  case 10: { // leaderboard
     ldbrender();
+    break;
+  }
+  case 11: { // pause menu
+    options();
+    t--;
+    break;
+  }
+  case 12: { // input name
+    strokeWeight(6);
+    fill(0);
+    stroke(255);
+    rect((width-500)/2, 100, 500, 100, 6);
+    rect((width-500)/2, 200, 500, 550, 6);
+    fill(255);
+    text("Congratulations! You have ranked number "+(place+1)+"!", (width-textWidth("Congratulations! You have ranked number "+(place+1)+"!"))/2, 40);
+    text("Score: "+score, (width-textWidth("Score: "+score))/2, 62);
+    text("Please input your name: ", (width-textWidth("Please input your name: "))/2, 140);
+    text("Or choose a name from here: ", (width-textWidth("Or choose a name from here: "))/2, 240);
+    text(input, (width-textWidth(input))/2, 170);
+    for(int i = 0; i<choice.length; i++){
+      if(mouseX > (width-500)/2+20 && mouseX < (width-500)/2+20 + 400 && mouseY > 260+i*22-22 && mouseY < 260+i*22-22 + 21){
+        noStroke();
+        fill(100);
+        rect((width-500)/2+20, 260+i*22-22, 400, 21);
+        fill(255);
+      }
+      text(choice[i], (width-500)/2+20, 260+i*22);
+    }
     break;
   }
   default: {
@@ -137,6 +172,7 @@ void draw() {
   }
 }
 
+int place = 0;
 
 void keyPressed() {
   switch (menu) {
@@ -206,6 +242,9 @@ void keyPressed() {
     }
     case 2: {
       p.setMove(keyCode, true);
+      if (keyCode == 80) {
+        menu = 11;
+      }
       break;
     }
     case 3: {
@@ -232,6 +271,54 @@ void keyPressed() {
     }
     case 8: {
       optchmc();
+      break;
+    }
+    case 11: {
+      optchmc();
+      if (keyCode == 10) {
+        switch (menuselect) {
+          case 0: {
+            menu = 2;
+            break;
+          }
+          case 1: {
+            ldbload();
+            ldbloaddata("");
+            place = -1;
+            input = ""; // yes
+            choice = new String[0]; // yes
+            for (int i = 0; i<ldbstrdata.length; i++) {
+              boolean doesithave = false;
+              for (int l = 0; l<choice.length; l++) {
+                if (choice[l] == ldbstrdata[i]) doesithave = true;
+                println(choice[l], ldbstrdata[i]);
+              }
+              if (doesithave){
+                println("i found a string twice bangbang");
+                continue;
+              }
+              choice = append(choice, ldbstrdata[i]);
+            }
+            for (int i = 0; i < ldbscoredata.length; i++) {
+              if (ldbscoredata[i] < score) {
+                println(ldbscoredata[i] + " is smaller than " + score + " which means its in place " + i);
+                place = i;
+                break;
+              }
+            }
+            if (place == -1) place = ldbscoredata.length;
+            if (place<20){
+              togo = 12;
+              menu = 4;
+            };
+            break;
+          }
+        }
+      }
+      break;
+    }
+    case 12: {
+      kbd();
       break;
     }
   }
